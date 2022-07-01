@@ -1,0 +1,32 @@
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 1.2rem;
+}
+
+.product ~ .product {
+    border-top: solid 1px #666 ;
+}
+
+.product-image {
+    width: 10%;
+}
+
+.product-info {
+    width: 25%;
+}
+
+.product-price, .product-quantity, .total-payment {
+    width: 15%;
+}
+
+.product-quantity {
+    padding-left: 30px;
+}
+
+.delete-btn {
+    cursor: pointer;
+}
+

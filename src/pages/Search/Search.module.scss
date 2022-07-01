@@ -1,0 +1,30 @@
+.search {
+    max-width: 1260px;
+    padding: 0 30px;
+    margin: 0 auto;
+}
+
+.search-bar {
+    width: fit-content;
+    padding: 2px 0;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    border-bottom: solid 1px var(--dark-gray-color);
+}
+
+.search-icon {
+    font-size: 1.6rem;
+    color: var(--dark-gray-color);
+}
+
+.search-input {
+    width: 350px;
+    padding: 5px 10px;
+    font-size: 1.6rem;
+    background-color: transparent;
+}
+
+.search-result {
+    display: flex;
+    flex-wrap: wrap;
+}

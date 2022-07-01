@@ -1,0 +1,94 @@
+.product {
+    display: flex;
+    max-width: 1260px;
+    padding: 0 30px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.product-image {
+    width: 45%;
+    padding: 50px;
+    border-right: solid 1px #bbb;
+    background-color: var(--white-color);
+
+    img{
+        display: inline-block;
+        width: 100%;
+    }
+}
+
+.product-info {
+    width: 55%;
+    padding-left: 40px;
+    padding-top: 20px;
+    position: relative;
+    background-color: var(--white-color);
+}
+
+.product-name {
+    font-size: 2.7rem;
+}
+
+.product-price {
+    font-size: 2.5rem;
+    margin-top: 20px;
+    color: var(--blue-color);
+
+    span {
+        font-size: 1.8rem;
+        color: initial;
+        margin-right: 5px;
+    }
+}
+
+.product-quantity {
+    margin-top: 20px;
+}
+
+.quantity-title {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+}
+
+.quantity-form {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border: solid 2px var(--dark-gray-color);
+}
+
+.quantity-input {
+    text-align: center;
+    width: 80px;
+    padding: 3px 5px;
+    border-left: solid 2px var(--dark-gray-color);
+    border-right: solid 2px var(--dark-gray-color);
+    font-size: 1.6rem;
+
+    background-color: transparent;
+}
+
+.reduce-btn,.increase-btn {
+    font-size: 1.6rem;
+    padding: 2px 4px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.add-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    font-size: 1.8rem;
+    border-radius: 8px;
+
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    cursor: pointer;
+
+    a {
+        display: inline-block;
+        padding: 10px 30px;
+    }
+}

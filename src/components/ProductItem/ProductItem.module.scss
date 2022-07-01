@@ -1,0 +1,35 @@
+.product-link {
+    display: block;
+    width: 25%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 430px;
+    padding: 30px;
+    border-radius: 5px;
+    background-color: var(--white-color);
+
+    &:hover {
+        box-shadow: 1px 1px 28px 0px rgb(0, 0, 0, 0.1);
+    }
+}
+
+.product-image {
+    user-select: none;
+    width: 100%;
+}
+
+.product-name {
+    font-size: 2rem;
+    height: 50px;
+}
+
+.product-price {
+    color: var(--blue-color);
+    font-size: 1.6rem;
+}

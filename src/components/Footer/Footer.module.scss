@@ -1,0 +1,59 @@
+.wrapper {
+    background-color: #222;
+}
+
+.footer {
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 30px;
+    padding-top: 38px;
+    padding-bottom: 50px;
+    color: var(--text-color);
+}
+
+.about {
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-content {
+    width: 20%;
+}
+
+.heading {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+.option-item {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.25rem;   
+    font-weight: 400;
+    line-height: 1.6;
+    
+    a {
+        position: relative;
+        padding-bottom: 2px;
+    }
+
+    a::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--text-color);
+        transition: width 0.6s;
+    }
+
+    a:hover::after {
+        width: 100%;
+    }
+}
+
+.phone-number {
+    letter-spacing: 0.5px;
+    color: var(--blue-color);
+}
