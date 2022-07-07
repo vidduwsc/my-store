@@ -5,9 +5,7 @@
 .footer {
     max-width: 1260px;
     margin: 0 auto;
-    padding: 0 30px;
-    padding-top: 38px;
-    padding-bottom: 50px;
+    padding: 38px 30px;
     color: var(--text-color);
 }
 
@@ -18,6 +16,7 @@
 
 .about-content {
     width: 20%;
+    margin-bottom: 20px;
 }
 
 .heading {
@@ -56,4 +55,24 @@
 .phone-number {
     letter-spacing: 0.5px;
     color: var(--blue-color);
+}
+
+// Mobile Screen
+
+@media only screen and (max-width: 740px)  {
+    .about {
+        flex-wrap: wrap;
+    }
+    
+    .about-content {
+        width: 50%;
+    }
+
+    .heading {
+        margin-bottom: 10px;
+    }
+
+    .option-item {
+        margin-bottom: 4px;
+    }
 }

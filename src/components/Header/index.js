@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBars,
   faCartShopping,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +15,7 @@ function Header() {
     <div className={cx("wrapper")}>
       <header className={cx("header")}>
         <div className={cx("logo")}>
-          <Link to="/" className={cx("logo-Navlink")}>
+          <Link to="/" className={cx("logo-link")}>
             My Store
           </Link>
         </div>

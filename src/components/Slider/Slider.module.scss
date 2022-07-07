@@ -72,3 +72,24 @@
         color: #666;
     }
 }
+
+
+// Mobile Screen
+
+@media only screen and (max-width: 740px)  {
+    .slider-prev, .slider-next {
+        padding: 4px 8px;
+    }
+
+    .slider-prev{
+        left: 8px;
+    }
+    
+    .slider-next {
+        right: 8px;
+    }
+
+    .slider-dot-list {
+        bottom: 0;
+    }
+}

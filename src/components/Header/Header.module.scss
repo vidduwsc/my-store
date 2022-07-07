@@ -11,15 +11,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+
     max-width: 1260px;
     padding: 0 30px;
     margin: 0 auto;
+
 
     color: var(--text-color);
 }
 
 .logo {
     font-size: 2.8rem;
+    text-align: center;
 }
 
 .navigation-list {
@@ -29,9 +33,12 @@
 }
 
 .navigation-link {
-    
-    display:inline-block;
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding: 22px;
+    height: 100%;
 
     &:hover {
         color: var(--white-color);
@@ -63,3 +70,42 @@
     margin-left: 10px;
 }
 
+
+// Tablet Screen
+
+@media only screen and (max-width: 1024px)  {
+    .header {
+        padding: 0 16px;
+    }
+
+    .logo {
+        font-size: 2.2rem;
+    }
+
+    .cart {
+        margin-left: 0;
+    }
+}
+
+// Mobile Screen
+
+@media only screen and (max-width: 740px)  {
+    .header {
+        padding-bottom: 6px;
+    }
+
+    .navigation-list {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+
+        font-size: 1.2rem;
+       
+        background-color: var(--dark-gray-color);
+    }
+
+    .navigation-link {
+        padding: 10px;
+    }
+}

@@ -92,3 +92,27 @@
         padding: 10px 30px;
     }
 }
+
+// Mobile Screen
+
+@media only screen and (max-width: 740px)  {
+    .product {
+        flex-direction: column;
+    }
+
+    .product-image, .product-info {
+        width: 100%;
+    }
+
+    .product-image {
+        padding: 20px;
+        border-right: none;
+        border-bottom: solid 1px #bbb;
+    }
+
+    .add-btn {
+        position: static;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+}

@@ -33,3 +33,33 @@
     color: var(--blue-color);
     font-size: 1.6rem;
 }
+
+// Tablet Screen
+
+@media only screen and (max-width: 1024px)  {
+    .product-link {
+        width: 33.333%;
+    }
+}
+
+// Mobile Screen
+
+@media only screen and (max-width: 740px)  {
+    .product-link {
+        width: 50%;
+    }
+
+    .product-item {
+        height: 300px;
+        padding: 18px;
+    }
+
+    .product-name {
+        font-size: 1.8rem;
+        height: 68px;
+    }
+    
+    .product-price {
+        font-size: 1.4rem;
+    }
+}

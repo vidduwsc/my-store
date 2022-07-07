@@ -1,5 +1,13 @@
 .container {
-    min-height: 60vh;
+    min-height: 70vh;
     padding: 36px 0;
     margin-top: 70px;
+}
+
+// Mobile Screen
+
+@media only screen and (max-width: 740px)  {
+    .container {
+        min-height: 50vh;
+    }
 }
