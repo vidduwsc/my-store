@@ -1,7 +1,4 @@
-const routes = [
-  {
-    path: "/",
-  },
+const productRoutes = [
   {
     path: "/iphone",
     type: "iphone",
@@ -26,12 +23,6 @@ const routes = [
     path: "/phu-kien",
     type: "phu-kien",
   },
-  {
-    path: "/search",
-  },
-  {
-    path: "/cart",
-  },
 ];
 
-export { routes };
+export { productRoutes };

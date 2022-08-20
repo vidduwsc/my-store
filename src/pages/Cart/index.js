@@ -1,66 +1,79 @@
-import ProductInCart from "../../components/ProductInCart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import ProductInCart from "../../components/ProductInCart";
+import { getCart, deleteProductInCart } from "../../redux/cartSlice";
 import classNames from "classnames/bind";
 import styles from "./Cart.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Cart({ productsInCart }) {
-  const [productList, setProductList] = useState(productsInCart);
+function Cart() {
+  const productsInCart = useSelector((state) => state.cart);
 
-  const handleDelete = (index) => {
-    productsInCart.splice(index, 1);
+  const dispatch = useDispatch();
 
-    let newProductList = [...productsInCart];
-    setProductList(newProductList);
+  const [reLoad, setReLoad] = useState(false);
+
+  useEffect(() => {
+    dispatch(getCart());
+    setReLoad(false);
+  }, [dispatch, reLoad]);
+
+  const handleDelete = (id) => {
+    dispatch(deleteProductInCart(id));
+    setReLoad(true);
   };
 
-  let totalPayment = productList
+  let totalPayment = productsInCart
     .reduce((total, product) => {
-      return (total += product.price * product.quantity);
+      return (total += product.product.price * product.quantity);
     }, 0)
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
   return (
-    <div className={cx("cart")}>
-      <h2 className={cx("heading")}>Giỏ hàng</h2>
-      <div className={cx("content")}>
-        {productList.length === 0 ? (
-          <h2>Chưa có sản phẩm nào trong giỏ hàng</h2>
-        ) : (
-          <>
-            <div className={cx("section-left")}>
-              <div className={cx("product-title")}>
-                <p>Sản phẩm</p>
-                <p>Giá</p>
-                <p>Số lượng</p>
-                <p>Tạm tính</p>
+    <div className={cx("wapper")}>
+      <div className={cx("cart")}>
+        <h2 className={cx("heading")}>Giỏ hàng</h2>
+        <div className={cx("content")}>
+          {productsInCart.length === 0 ? (
+            <h2>Chưa có sản phẩm nào trong giỏ hàng</h2>
+          ) : (
+            <>
+              <div className={cx("section-left")}>
+                <div className={cx("product-title")}>
+                  <p>Sản phẩm</p>
+                  <p>Giá</p>
+                  <p>Số lượng</p>
+                  <p>Tạm tính</p>
+                </div>
+                <div className={cx("product-list")}>
+                  {productsInCart.map((product) => {
+                    return (
+                      <ProductInCart
+                        key={product._id}
+                        product={product.product}
+                        quantity={product.quantity}
+                        handleDelete={() => handleDelete(product._id)}
+                      />
+                    );
+                  })}
+                </div>
               </div>
-              <div className={cx("product-list")}>
-                {productList.map((product, index) => {
-                  return (
-                    <ProductInCart
-                      key={product.id}
-                      product={product}
-                      handleDelete={() => handleDelete(index)}
-                    />
-                  );
-                })}
+              <div className={cx("section-right")}>
+                <h2 className={cx("pay-heading")}>Tổng giỏ hàng</h2>
+                <p className={cx("pay-title")}>
+                  Số tiền phải thanh toán là: <span>{totalPayment} đ</span>
+                </p>
+                <button className={cx("pay-btn")}>
+                  <Link to="/cart">Tiến hành thanh toán</Link>
+                </button>
               </div>
-            </div>
-            <div className={cx("section-right")}>
-              <h2 className={cx("pay-heading")}>Tổng giỏ hàng</h2>
-              <p className={cx("pay-title")}>
-                Số tiền phải thanh toán là: <span>{totalPayment} đ</span>
-              </p>
-              <button className={cx("pay-btn")}>
-                <Link to="/cart">Tiến hành thanh toán</Link>
-              </button>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
