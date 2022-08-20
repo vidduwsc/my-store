@@ -1,6 +1,13 @@
+.wapper {
+    margin-top: 120px;
+    min-height: 70vh;
+    padding-bottom: 50px;
+}
+
 .product {
     display: flex;
     max-width: 1260px;
+    min-height: 500px;
     padding: 0 30px;
     margin: 0 auto;
     border-radius: 5px;

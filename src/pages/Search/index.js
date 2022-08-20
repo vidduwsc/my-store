@@ -1,38 +1,50 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
 import ProductItem from "../../components/ProductItem";
+import { getProducts } from "../../redux/productsSlice";
 import classNames from "classnames/bind";
 import styles from "./Search.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Search({ products }) {
+function Search() {
+  let products = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  // console.log(products);
+
+  useEffect(() => {
+    dispatch(getProducts({ type: "cart" }));
+  }, [dispatch]);
+
   const [inputValue, setInputValue] = useState("");
+  const typingTimeoutRef = useRef(null);
 
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    let value = e.target.value;
+    setInputValue(value);
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    typingTimeoutRef.current = setTimeout(() => {
+      if (value.trim()) {
+        dispatch(getProducts({ searchValue: value }));
+      } else {
+        dispatch(getProducts({ type: "cart" }));
+      }
+    }, 500);
   };
-
-  const searchResult = products.filter((product) => {
-    // Chuyển tên sản phẩm và giá trị input thành chữ thường và bỏ dấu
-    let productName = product.name
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/đ/g, "d")
-      .replace(/Đ/g, "D");
-
-    let newInputValue = inputValue
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/đ/g, "d")
-      .replace(/Đ/g, "D")
-      .trim();
-
-    return productName.includes(newInputValue);
-  });
+  // Chuyển tên sản phẩm và giá trị input thành chữ thường và bỏ dấu
+  // let productName = product.name
+  //   .toLowerCase()
+  //   .normalize("NFD")
+  //   .replace(/[\u0300-\u036f]/g, "")
+  //   .replace(/đ/g, "d")
+  //   .replace(/Đ/g, "D");
 
   return (
     <div className={cx("search")}>
@@ -50,13 +62,9 @@ function Search({ products }) {
         />
       </div>
       <div className={cx("search-result")}>
-        {inputValue.trim() ? (
-          searchResult.map((product) => {
-            return <ProductItem key={product.id} product={product} />;
-          })
-        ) : (
-          <></>
-        )}
+        {products.map((product) => {
+          return <ProductItem key={product._id} product={product} />;
+        })}
       </div>
     </div>
   );

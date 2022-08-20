@@ -1,7 +1,9 @@
 .search {
     max-width: 1260px;
+    min-height: 70vh;
     padding: 0 30px;
     margin: 0 auto;
+    margin-top: 100px;
 }
 
 .search-bar {
@@ -27,12 +29,14 @@
 .search-result {
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 50px;
 }
 
 // Mobile Screen
 
 @media only screen and (max-width: 740px)  {
     .search {
+        min-height: 50vh;
         padding: 0;
     }
 

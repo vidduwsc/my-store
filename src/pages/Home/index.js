@@ -1,11 +1,22 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "../../components/Slider";
 import SomeProducts from "../../components/SomeProducts";
+import { getProducts } from "../../redux/productsSlice";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Home({ products }) {
+function Home() {
+  const products = useSelector((state) => state.products);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts({}));
+  }, [dispatch]);
+
   const productsFilter = (type) => {
     return products
       .filter((product) => {

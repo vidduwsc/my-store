@@ -1,13 +1,48 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+
+import { convertImage } from "../../actions/ConvertImage";
+import { getProductById } from "../../redux/productSlice";
+import { getCart, addToCart, updateCart } from "../../redux/cartSlice";
 import classNames from "classnames/bind";
 import styles from "./ProductDetail.module.scss";
-import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-function ProductDetail({ product, productsInCart }) {
+function ProductDetail() {
+  const { productId } = useParams();
+
+  const product = useSelector((state) => state.product);
+  const productsInCart = useSelector((state) => state.cart);
+
+  const [productData, setProductData] = useState({
+    price: 0,
+    imageUrl: "",
+  });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProductById(productId));
+  }, [dispatch, productId]);
+
+  useEffect(() => {
+    if (product.price) {
+      setProductData({
+        price: product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."),
+        imageUrl: convertImage(product.image),
+      });
+    }
+  }, [product]);
+
   const [quantity, setQuantity] = useState(1);
 
   const handleChange = (e) => {
@@ -35,77 +70,85 @@ function ProductDetail({ product, productsInCart }) {
 
   const handleAddProduct = () => {
     if (productsInCartLength > 0) {
-      let newProduct = {
-        isInCart: false,
-        info: {},
-      };
+      let newProduct = {};
 
       for (let productInCart of productsInCart) {
-        if (productInCart.id === product.id) {
+        if (productInCart.product._id === product._id) {
           newProduct = {
             isInCart: true,
-            info: productInCart,
+            id: productInCart._id,
+            quantity: productInCart.quantity + quantity,
           };
           break;
         } else {
           newProduct = {
             isInCart: false,
-            info: product,
+            quantity,
           };
         }
       }
 
       if (newProduct.isInCart) {
-        newProduct.info.quantity += quantity;
+        dispatch(
+          updateCart({
+            id: newProduct.id,
+            product: productId,
+            quantity: newProduct.quantity,
+          })
+        );
       } else {
-        productsInCart.push({
-          ...newProduct.info,
-          quantity,
-        });
+        dispatch(
+          addToCart({
+            product: productId,
+            quantity,
+          })
+        );
       }
     } else {
-      productsInCart.push({
-        ...product,
-        quantity,
-      });
+      dispatch(
+        addToCart({
+          product: productId,
+          quantity,
+        })
+      );
     }
   };
 
-  let price = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
   return (
-    <div className={cx("product")}>
-      <div className={cx("product-image")}>
-        <img src={product.image} alt={product.name} />
-      </div>
-      <div className={cx("product-info")}>
-        <h3 className={cx("product-name")}>{product.name}</h3>
-        <p className={cx("product-price")}>
-          <span>Giá: </span> {price} đ
-        </p>
-        <div className={cx("product-quantity")}>
-          <p className={cx("quantity-title")}>Số lượng:</p>
-          <div className={cx("quantity-form")}>
-            <FontAwesomeIcon
-              icon={faMinus}
-              className={cx("reduce-btn")}
-              onClick={handleReduce}
-            />
-            <input
-              className={cx("quantity-input")}
-              value={quantity}
-              onChange={handleChange}
-            />
-            <FontAwesomeIcon
-              icon={faPlus}
-              className={cx("increase-btn")}
-              onClick={handleIncrease}
-            />
-          </div>
+    <div className={cx("wapper")}>
+      <div className={cx("product")}>
+        <div className={cx("product-image")}>
+          <img src={productData.imageUrl} alt={product.name} />
         </div>
-        <button className={cx("add-btn")} onClick={handleAddProduct}>
-          <Link to="/cart">Thêm vào giỏ hàng</Link>
-        </button>
+        <div className={cx("product-info")}>
+          <h3 className={cx("product-name")}>{product.name}</h3>
+          <p className={cx("product-price")}>
+            <span>Giá: </span> {productData.price} đ
+          </p>
+          <div className={cx("product-quantity")}>
+            <p className={cx("quantity-title")}>Số lượng:</p>
+            <div className={cx("quantity-form")}>
+              <FontAwesomeIcon
+                icon={faMinus}
+                className={cx("reduce-btn")}
+                onClick={handleReduce}
+              />
+              <input
+                className={cx("quantity-input")}
+                value={quantity}
+                onChange={handleChange}
+              />
+              <FontAwesomeIcon
+                icon={faPlus}
+                className={cx("increase-btn")}
+                onClick={handleIncrease}
+              />
+            </div>
+          </div>
+          <button className={cx("add-btn")} onClick={handleAddProduct}>
+            <Link to="/cart">Thêm vào giỏ hàng</Link>
+          </button>
+        </div>
       </div>
     </div>
   );

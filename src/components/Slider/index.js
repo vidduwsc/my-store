@@ -4,7 +4,7 @@ import {
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { banners } from "../../api/images";
+import { banners } from "../../assets/index";
 import classNames from "classnames/bind";
 import styles from "./Slider.module.scss";
 import { memo, useRef, useState, useEffect } from "react";

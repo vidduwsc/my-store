@@ -14,7 +14,7 @@ function SomeProducts({ data }) {
       <h2 className={cx("heading")}>{heading}</h2>
       <div className={cx("product-list")}>
         {products.map((product) => {
-          return <ProductItem key={product.id} product={product} />;
+          return <ProductItem key={product._id} product={product} />;
         })}
       </div>
       <Link to={path} className={cx("button")}>

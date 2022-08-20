@@ -1,16 +1,18 @@
+import { Routes, Route } from "react-router-dom";
+
 import ScrollToTop from "./actions/ScrollToTop";
 import Header from "./components/Header";
-import Container from "./components/Container";
+import Home from "../src/pages/Home";
+import Products from "../src/pages/Products";
+import ProductDetail from "../src/pages/ProductDetail";
+import Search from "../src/pages/Search";
+import Cart from "../src/pages/Cart";
 import Footer from "./components/Footer";
+import { productRoutes } from "./router";
 
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyA1x8VVJtAYyw8msKsjviuYQfJ8R2SZFjg",
   authDomain: "my-store-1807vd.firebaseapp.com",
@@ -30,7 +32,21 @@ function App() {
     <div className="App">
       <ScrollToTop />
       <Header />
-      <Container />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/cart" element={<Cart />} />
+        {productRoutes.map((productRoute) => {
+          return (
+            <Route
+              key={productRoute.type}
+              path={productRoute.path}
+              element={<Products type={productRoute.type} />}
+            />
+          );
+        })}
+        <Route path="/product/:productId" element={<ProductDetail />} />
+      </Routes>
       <Footer />
     </div>
   );
