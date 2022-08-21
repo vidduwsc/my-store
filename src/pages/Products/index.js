@@ -17,9 +17,7 @@ function Products({ type }) {
 
   useEffect(() => {
     dispatch(getProducts({ type }));
-    return () => {
-      console.log("clear from Products");
-    };
+    return () => {};
   }, [dispatch, type]);
 
   const loadingProducts = [1, 2, 3, 4, 5, 6, 7, 8];
