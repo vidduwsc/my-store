@@ -26,22 +26,30 @@ const deleteProductInCart = createAsyncThunk(
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: [],
+  initialState: {
+    isLoading: false,
+    addSuccess: false,
+    productsInCart: [],
+  },
   reducers: {},
   extraReducers: (buider) => {
     buider
+      .addCase(getCart.pending, (state, action) => {
+        state.isLoading = true;
+      })
       .addCase(getCart.fulfilled, (state, action) => {
-        state = action.payload;
-        return state;
+        state.isLoading = false;
+        state.addSuccess = false;
+        state.productsInCart = action.payload;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state = action.payload;
+        state.addSuccess = true;
       })
       .addCase(updateCart.fulfilled, (state, action) => {
-        state = action.payload;
+        state.addSuccess = true;
       })
       .addCase(deleteProductInCart.fulfilled, (state, action) => {
-        state = action.payload;
+        state.isLoading = true;
       });
   },
 });

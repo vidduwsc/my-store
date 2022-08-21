@@ -88,17 +88,103 @@
     bottom: 20px;
     left: 40px;
     font-size: 1.8rem;
+    padding: 10px 30px;
     border-radius: 8px;
 
     background-color: var(--blue-color);
     color: var(--white-color);
     cursor: pointer;
-
-    a {
-        display: inline-block;
-        padding: 10px 30px;
-    }
 }
+
+.add-product-toast {
+    position: fixed;
+    top: 90px;
+    right: 10px;
+
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+
+    color: var(--white-color);
+    background-color: #5cb85c;
+
+    z-index: 9;
+}
+
+//Product Loading
+
+.product-loading {
+    display: flex;
+    max-width: 1260px;
+    min-height: 600px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+
+.product-loading-image {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: solid 1px #bbb;
+    background-color: var(--white-color);
+}
+
+.product-loading-image-item {
+    width: 50%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--text-color);
+}
+
+.product-loading-icon {
+    font-size: 24px;
+    color: var(--dark-gray-color);
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from {transform: rotate(360deg);}
+    to {transform: rotate(0deg);}
+}
+
+.product-loading-info {
+    position: relative;
+    width: 55%;
+    padding: 30px;
+    background-color: var(--white-color);
+}
+
+.product-loading-name {
+    width: 80%;
+    height: 28px;
+    margin-bottom: 26px;
+    background-color: var(--text-color);
+}
+
+.product-loading-price,.product-loading-quantity {
+    width: 50%;
+    height: 24px;
+    background-color: var(--text-color);
+}
+
+.product-loading-price {
+    margin-bottom: 26px;
+}
+
+.product-loading-add-btn {
+    width: 30%;
+    height: 7%;
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    border-radius: 8px;
+    background-color: var(--text-color);
+}
+
 
 // Mobile Screen
 
@@ -111,15 +197,38 @@
         width: 100%;
     }
 
-    .product-image {
-        padding: 20px;
+    .product-image,.product-loading-image {
         border-right: none;
         border-bottom: solid 1px #bbb;
+    }
+
+    .product-image {
+        padding: 20px;
     }
 
     .add-btn {
         position: static;
         margin-top: 30px;
         margin-bottom: 20px;
+    }
+
+    .add-product-toast {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .product-loading {
+        flex-direction: column;
+        padding: 0 30px;
+    }
+
+    .product-loading-image, .product-loading-info {
+        width: 100%;
+        height: 300px;
+    }
+    
+    .product-loading-add-btn {
+        width: 60%;
+        height: 9%;
     }
 }

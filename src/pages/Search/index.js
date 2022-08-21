@@ -1,4 +1,7 @@
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
@@ -10,13 +13,15 @@ import styles from "./Search.module.scss";
 const cx = classNames.bind(styles);
 
 function Search() {
-  let products = useSelector((state) => state.products);
+  const { isLoading, products } = useSelector((state) => state.products);
+
   const dispatch = useDispatch();
 
   // console.log(products);
 
   useEffect(() => {
     dispatch(getProducts({ type: "cart" }));
+    return () => {};
   }, [dispatch]);
 
   const [inputValue, setInputValue] = useState("");
@@ -60,7 +65,11 @@ function Search() {
           onChange={handleChange}
           spellCheck="false"
         />
+        {isLoading && (
+          <FontAwesomeIcon icon={faSpinner} className={cx("loading-icon")} />
+        )}
       </div>
+
       <div className={cx("search-result")}>
         {products.map((product) => {
           return <ProductItem key={product._id} product={product} />;

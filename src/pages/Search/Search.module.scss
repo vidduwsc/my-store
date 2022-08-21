@@ -26,6 +26,16 @@
     background-color: transparent;
 }
 
+.loading-icon {
+    font-size: 12px;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from {transform: rotate(360deg);}
+    to {transform: rotate(0deg);}
+}
+
 .search-result {
     display: flex;
     flex-wrap: wrap;

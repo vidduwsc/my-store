@@ -11,13 +11,17 @@ const getProductById = createAsyncThunk(
 
 const productSlice = createSlice({
   name: "product",
-  initialState: {},
+  initialState: { isLoading: false, product: {} },
   reducers: {},
   extraReducers: (buider) => {
-    buider.addCase(getProductById.fulfilled, (state, action) => {
-      state = action.payload;
-      return state;
-    });
+    buider
+      .addCase(getProductById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getProductById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.product = action.payload;
+      });
   },
 });
 

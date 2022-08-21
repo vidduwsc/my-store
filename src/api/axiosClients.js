@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const controller = new AbortController();
+
 const axiosClient = axios.create({
   baseURL:
     process.env.NODE_ENV !== "production"
@@ -8,6 +10,7 @@ const axiosClient = axios.create({
   headers: {
     "content-type": "application/json",
   },
+  signal: controller.signal,
 });
 
 axiosClient.interceptors.response.use(
@@ -23,3 +26,4 @@ axiosClient.interceptors.response.use(
 );
 
 export default axiosClient;
+export { controller };

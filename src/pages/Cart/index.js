@@ -6,11 +6,13 @@ import ProductInCart from "../../components/ProductInCart";
 import { getCart, deleteProductInCart } from "../../redux/cartSlice";
 import classNames from "classnames/bind";
 import styles from "./Cart.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
 function Cart() {
-  const productsInCart = useSelector((state) => state.cart);
+  const { isLoading, productsInCart } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 
@@ -36,6 +38,14 @@ function Cart() {
   return (
     <div className={cx("wapper")}>
       <div className={cx("cart")}>
+        {isLoading && (
+          <div className={cx("cart-loading")}>
+            <FontAwesomeIcon
+              icon={faSpinner}
+              className={cx("cart-loading-icon")}
+            />
+          </div>
+        )}
         <h2 className={cx("heading")}>Giỏ hàng</h2>
         <div className={cx("content")}>
           {productsInCart.length === 0 ? (

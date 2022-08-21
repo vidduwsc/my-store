@@ -5,16 +5,23 @@ import SomeProducts from "../../components/SomeProducts";
 import { getProducts } from "../../redux/productsSlice";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
+import { controller } from "../../api/axiosClients";
 
 const cx = classNames.bind(styles);
 
 function Home() {
-  const products = useSelector((state) => state.products);
+  const { isLoading, products } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
 
+  console.log(controller.signal);
   useEffect(() => {
     dispatch(getProducts({}));
+    return () => {
+      console.log("clear from Home");
+
+      // controller.abort();
+    };
   }, [dispatch]);
 
   const productsFilter = (type) => {
@@ -63,7 +70,13 @@ function Home() {
       <Slider />
       <div className={cx("content")}>
         {contentList.map((content) => {
-          return <SomeProducts key={content.id} data={content} />;
+          return (
+            <SomeProducts
+              key={content.id}
+              data={content}
+              isLoading={isLoading}
+            />
+          );
         })}
       </div>
     </div>
