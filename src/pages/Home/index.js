@@ -5,7 +5,6 @@ import SomeProducts from "../../components/SomeProducts";
 import { getProducts } from "../../redux/productsSlice";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
-// import { controller } from "../../api/axiosClients";
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +15,6 @@ function Home() {
 
   useEffect(() => {
     dispatch(getProducts({}));
-    return () => {};
   }, [dispatch]);
 
   const productsFilter = (type) => {

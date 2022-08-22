@@ -17,7 +17,6 @@ function Products({ type }) {
 
   useEffect(() => {
     dispatch(getProducts({ type }));
-    return () => {};
   }, [dispatch, type]);
 
   const loadingProducts = [1, 2, 3, 4, 5, 6, 7, 8];

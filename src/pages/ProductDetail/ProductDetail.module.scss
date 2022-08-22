@@ -93,7 +93,15 @@
 
     background-color: var(--blue-color);
     color: var(--white-color);
-    cursor: pointer;
+    
+    &:hover {
+        background-color: var(--hover-blue-color);
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: var(--active-blue-color);
+    }
 }
 
 .add-product-toast {

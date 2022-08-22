@@ -86,6 +86,13 @@
         display: inline-block;
         padding: 12px 36px;
     }
+    &:hover {
+        background-color: var(--hover-blue-color);
+    }
+
+    &:active {
+        background-color: var(--active-blue-color);
+    }
 }
 
 // Cart Loading

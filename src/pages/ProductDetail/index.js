@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useEffect } from "react";
+import { useLayoutEffect, useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { faMinus, faPlus, faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,10 @@ function ProductDetail() {
     imageUrl: "",
   });
 
+  const [showToast, setShowToast] = useState(false);
+
+  const toastTimeoutRef = useRef(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,6 +36,19 @@ function ProductDetail() {
   useEffect(() => {
     dispatch(getProductById(productId));
   }, [dispatch, productId]);
+
+  useEffect(() => {
+    if (addSuccess) {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+
+      setShowToast(true);
+      toastTimeoutRef.current = setTimeout(() => {
+        setShowToast(false);
+      }, 1500);
+    }
+  }, [addSuccess]);
 
   useEffect(() => {
     if (product.price) {
@@ -67,7 +84,7 @@ function ProductDetail() {
 
   let productsInCartLength = productsInCart.length;
 
-  const handleAddProduct = () => {
+  const handleAddProduct = async () => {
     if (productsInCartLength > 0) {
       let newProduct = {};
 
@@ -88,7 +105,7 @@ function ProductDetail() {
       }
 
       if (newProduct.isInCart) {
-        dispatch(
+        await dispatch(
           updateCart({
             id: newProduct.id,
             product: productId,
@@ -96,7 +113,7 @@ function ProductDetail() {
           })
         );
       } else {
-        dispatch(
+        await dispatch(
           addToCart({
             product: productId,
             quantity,
@@ -104,7 +121,7 @@ function ProductDetail() {
         );
       }
     } else {
-      dispatch(
+      await dispatch(
         addToCart({
           product: productId,
           quantity,
@@ -162,13 +179,17 @@ function ProductDetail() {
                 />
               </div>
             </div>
-            <button className={cx("add-btn")} onClick={handleAddProduct}>
+            <button
+              className={cx("add-btn")}
+              disabled={addSuccess}
+              onClick={handleAddProduct}
+            >
               Thêm vào giỏ hàng
             </button>
           </div>
         </div>
       )}
-      {addSuccess && (
+      {showToast && (
         <div className={cx("add-product-toast")}> Thêm sản phẩm thành công</div>
       )}
     </div>

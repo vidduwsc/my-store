@@ -17,11 +17,8 @@ function Search() {
 
   const dispatch = useDispatch();
 
-  // console.log(products);
-
   useEffect(() => {
     dispatch(getProducts({ type: "cart" }));
-    return () => {};
   }, [dispatch]);
 
   const [inputValue, setInputValue] = useState("");
