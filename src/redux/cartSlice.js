@@ -48,8 +48,11 @@ const cartSlice = createSlice({
       .addCase(updateCart.fulfilled, (state, action) => {
         state.addSuccess = true;
       })
-      .addCase(deleteProductInCart.fulfilled, (state, action) => {
+      .addCase(deleteProductInCart.pending, (state, action) => {
         state.isLoading = true;
+      })
+      .addCase(deleteProductInCart.fulfilled, (state, action) => {
+        state.isLoading = false;
       });
   },
 });
